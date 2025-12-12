@@ -106,10 +106,10 @@ void demarrerNouvellePartie() {
 
     initialiserPlateau(plateau);
     resoudrePlateau(plateau);
-    afficherPlateau(plateau);
+    afficherPlateau(plateau, curseurX, curseurY);
 
     while (1) {
-    afficherPlateau(plateau);
+    afficherPlateau(plateau, curseurX, curseurY);
 
     printf("\nZQSD : déplacer le curseur | X : quitter\n");
     printf("Touche : ");
@@ -117,14 +117,25 @@ void demarrerNouvellePartie() {
     char touche;
     scanf(" %c", &touche);
 
-    if (touche == 'x') {
+    switch (touche) {
+    case 'z':
+        if (curseurX > 0) curseurX--;
+        break;
+
+    case 's':
+        if (curseurX < LIGNES - 1) curseurX++;
+        break;
+
+    case 'q':
+        if (curseurY > 0) curseurY--;
+        break;
+
+    case 'd':
+        if (curseurY < COLONNES - 1) curseurY++;
+        break;
+
+    case 'x':
         return;
-    }
-
-    if (touche == 'z' && curseurX > 0) curseurX--;
-    if (touche == 's' && curseurX < LIGNES - 1) curseurX++;
-    if (touche == 'q' && curseurY > 0) curseurY--;
-    if (touche == 'd' && curseurY < COLONNES - 1) curseurY++;
-
+        }
     }
 }
