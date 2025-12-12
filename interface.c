@@ -34,8 +34,7 @@ void traiterChoix(int choix) {
             break;
 
         case 2:
-            printf("\n--- NOUVELLE PARTIE ---\n");
-            printf("(Appel futur a demarrerNouvellePartie();)\n");
+            demarrerNouvellePartie();
             break;
 
         case 3:
@@ -88,4 +87,16 @@ void clearScreen() {
 #else
     system("clear");
 #endif
+}
+
+void demarrerNouvellePartie() {
+    int vies = 3;
+    int niveau = 1;
+
+    printf("\n==============================\n");
+    printf("   NOUVELLE PARTIE DEMARREE\n");
+    printf("==============================\n");
+    printf("Niveau actuel : %d\n", niveau);
+    printf("Vies restantes : %d\n", vies);
+    printf("\n(Bientot : affichage du plateau, contrat, coups...)\n");
 }

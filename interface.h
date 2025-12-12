@@ -7,5 +7,6 @@ int lireChoixMenu();
 void traiterChoix(int choix);
 void afficher_regles();
 void clearScreen();
+void demarrerNouvellePartie();
 
 #endif
