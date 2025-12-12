@@ -7,5 +7,7 @@
 
 void initialiserPlateau(int plateau[LIGNES][COLONNES]);
 void afficherPlateau(int plateau[LIGNES][COLONNES]);
+void detecterCombinaisons(int plateau[LIGNES][COLONNES]);
+int estDansPlateau(int valeur);
 
 #endif
