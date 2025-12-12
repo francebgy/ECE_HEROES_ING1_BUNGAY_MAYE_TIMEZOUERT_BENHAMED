@@ -148,3 +148,31 @@ void resoudrePlateau(int plateau[LIGNES][COLONNES]) {
 
     } while (plateauContientCombinaisons(plateau));
 }
+
+void afficherPlateauAvecCurseur(
+    int plateau[LIGNES][COLONNES],
+    int curseurX,
+    int curseurY
+) {
+    printf("\n");
+
+    for (int i = 0; i < LIGNES; i++) {
+        for (int j = 0; j < COLONNES; j++) {
+
+            if (i == curseurX && j == curseurY) {
+                printf("[");
+            } else {
+                printf(" ");
+            }
+
+            printf("%d", plateau[i][j]);
+
+            if (i == curseurX && j == curseurY) {
+                printf("]");
+            } else {
+                printf(" ");
+            }
+        }
+        printf("\n");
+    }
+}

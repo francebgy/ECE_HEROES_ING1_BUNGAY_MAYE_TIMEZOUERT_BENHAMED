@@ -14,5 +14,10 @@ void appliquerGravite(int plateau[LIGNES][COLONNES]);
 void remplirPlateau(int plateau[LIGNES][COLONNES]);
 int plateauContientCombinaisons(int plateau[LIGNES][COLONNES]);
 void resoudrePlateau(int plateau[LIGNES][COLONNES]);
+void afficherPlateauAvecCurseur(
+    int plateau[LIGNES][COLONNES],
+    int curseurX,
+    int curseurY
+);
 
 #endif
