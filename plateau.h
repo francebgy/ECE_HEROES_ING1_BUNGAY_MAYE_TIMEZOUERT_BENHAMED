@@ -9,5 +9,10 @@ void initialiserPlateau(int plateau[LIGNES][COLONNES]);
 void afficherPlateau(int plateau[LIGNES][COLONNES]);
 void detecterCombinaisons(int plateau[LIGNES][COLONNES]);
 int estDansPlateau(int valeur);
+void supprimerCombinaisons(int plateau[LIGNES][COLONNES]);
+void appliquerGravite(int plateau[LIGNES][COLONNES]);
+void remplirPlateau(int plateau[LIGNES][COLONNES]);
+int plateauContientCombinaisons(int plateau[LIGNES][COLONNES]);
+void resoudrePlateau(int plateau[LIGNES][COLONNES]);
 
 #endif

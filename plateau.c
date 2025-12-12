@@ -85,3 +85,66 @@ void detecterCombinaisons(int plateau[LIGNES][COLONNES]) {
         }
     }
 }
+
+int plateauContientCombinaisons(int plateau[LIGNES][COLONNES]) {
+    for (int i = 0; i < LIGNES; i++) {
+        for (int j = 0; j < COLONNES; j++) {
+            if (plateau[i][j] == -1) {
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
+void supprimerCombinaisons(int plateau[LIGNES][COLONNES]) {
+    for (int i = 0; i < LIGNES; i++) {
+        for (int j = 0; j < COLONNES; j++) {
+            if (plateau[i][j] == -1) {
+                plateau[i][j] = -1;
+            }
+        }
+    }
+}
+
+void appliquerGravite(int plateau[LIGNES][COLONNES]) {
+
+    for (int j = 0; j < COLONNES; j++) {
+        int ligneLibre = LIGNES - 1;
+
+        for (int i = LIGNES - 1; i >= 0; i--) {
+            if (plateau[i][j] != -1) {
+                plateau[ligneLibre][j] = plateau[i][j];
+                if (ligneLibre != i) {
+                    plateau[i][j] = -1;
+                }
+                ligneLibre--;
+            }
+        }
+    }
+}
+
+void remplirPlateau(int plateau[LIGNES][COLONNES]) {
+
+    for (int i = 0; i < LIGNES; i++) {
+        for (int j = 0; j < COLONNES; j++) {
+            if (plateau[i][j] == -1) {
+                plateau[i][j] = rand() % NB_ITEMS;
+            }
+        }
+    }
+}
+
+void resoudrePlateau(int plateau[LIGNES][COLONNES]) {
+
+    do {
+        detecterCombinaisons(plateau);
+
+        if (plateauContientCombinaisons(plateau)) {
+            supprimerCombinaisons(plateau);
+            appliquerGravite(plateau);
+            remplirPlateau(plateau);
+        }
+
+    } while (plateauContientCombinaisons(plateau));
+}

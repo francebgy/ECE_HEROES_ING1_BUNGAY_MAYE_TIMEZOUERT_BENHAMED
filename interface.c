@@ -103,7 +103,7 @@ void demarrerNouvellePartie() {
     printf("Vies   : %d\n\n", vies);
 
     initialiserPlateau(plateau);
-    detecterCombinaisons(plateau);
+    resoudrePlateau(plateau);
     afficherPlateau(plateau);
 
     printf("\n(Appuyez sur Entrée pour revenir au menu)");
