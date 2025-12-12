@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "interface.h"
+#include "plateau.h"
 
 void afficherMenu() {
     printf("\n");
@@ -92,11 +93,19 @@ void clearScreen() {
 void demarrerNouvellePartie() {
     int vies = 3;
     int niveau = 1;
+    int plateau[LIGNES][COLONNES];
 
     printf("\n==============================\n");
     printf("   NOUVELLE PARTIE DEMARREE\n");
     printf("==============================\n");
-    printf("Niveau actuel : %d\n", niveau);
-    printf("Vies restantes : %d\n", vies);
-    printf("\n(Bientot : affichage du plateau, contrat, coups...)\n");
+
+    printf("Niveau : %d\n", niveau);
+    printf("Vies   : %d\n\n", vies);
+
+    initialiserPlateau(plateau);
+    afficherPlateau(plateau);
+
+    printf("\n(Appuyez sur Entrée pour revenir au menu)");
+    getchar();
+    getchar();
 }
