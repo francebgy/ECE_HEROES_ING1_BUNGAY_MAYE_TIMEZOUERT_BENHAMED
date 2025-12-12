@@ -5,12 +5,18 @@ int main() {
 
     int choix = 0;
 
-    do {
+    while (choix != 4) {
+        clearScreen();
         afficherMenu();
         choix = lireChoixMenu();
         traiterChoix(choix);
 
-    } while (choix != 4);
+        if (choix != 4) {
+            printf("\nAppuyez sur Entrée pour revenir au menu...");
+            getchar();
+            getchar();
+        }
+    }
 
     return 0;
 }

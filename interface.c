@@ -30,9 +30,7 @@ void traiterChoix(int choix) {
 
     switch (choix) {
         case 1:
-            printf("\n--- REGLES DU JEU ---\n");
-            printf("But : remplir le contrat en eliminant des items par combinaison.\n");
-            printf("(Contenu complet ajouté plus tard.)\n");
+            afficher_regles();
             break;
 
         case 2:
@@ -52,4 +50,42 @@ void traiterChoix(int choix) {
         default:
             printf("Erreur interne.\n");
     }
+}
+
+void afficher_regles() {
+    printf("\n========================================\n");
+    printf("              REGLES DU JEU\n");
+    printf("========================================\n\n");
+
+    printf("ECE Heroes est un jeu de reflexion dans lequel le joueur doit\n");
+    printf("trouver des combinaisons de blocs afin d'obtenir le score le plus eleve.\n\n");
+
+    printf("1. Objectif du jeu\n");
+    printf("- Aligner des formes similaires pour marquer des points.\n");
+    printf("- Plus la combinaison est grande, plus le score gagne augmente.\n\n");
+
+    printf("2. Systeme de niveaux\n");
+    printf("- Chaque niveau augmente la difficulte et la vitesse du jeu.\n");
+    printf("- Les grilles deviennent plus complexes.\n");
+    printf("- Le joueur doit s'adapter rapidement.\n\n");
+
+    printf("3. Vies du joueur\n");
+    printf("- Le joueur commence avec 3 vies.\n");
+    printf("- Une erreur fait perdre une vie.\n");
+    printf("- Quand toutes les vies sont perdues, la partie est terminee.\n\n");
+
+    printf("4. Commandes\n");
+    printf("- Utilisez les touches pour vous deplacer dans les menus.\n");
+    printf("- Appuyez sur Entree pour valider un choix.\n\n");
+
+    printf("Appuyez sur Entree pour revenir au menu...");
+    getchar(); getchar(); // pause pour attendre que l'utilisateur appuie sur Entrée
+}
+
+void clearScreen() {
+#ifdef _WIN32
+    system("cls");
+#else
+    system("clear");
+#endif
 }
