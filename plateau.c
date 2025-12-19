@@ -153,3 +153,9 @@ void resoudrePlateau(int plateau[LIGNES][COLONNES]) {
 
     } while (plateauContientCombinaisons(plateau));
 }
+
+void interagirCase(int plateau[LIGNES][COLONNES], int x, int y) {
+    if (plateau[x][y] == 0) {
+        plateau[x][y] = 1;  // on marque la case
+    }
+}

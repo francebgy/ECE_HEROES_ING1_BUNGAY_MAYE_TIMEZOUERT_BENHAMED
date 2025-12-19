@@ -14,5 +14,6 @@ void remplirPlateau(int plateau[LIGNES][COLONNES]);
 int plateauContientCombinaisons(int plateau[LIGNES][COLONNES]);
 void resoudrePlateau(int plateau[LIGNES][COLONNES]);
 void afficherPlateau(int plateau[LIGNES][COLONNES], int curseurX, int curseurY);
+void interagirCase(int plateau[LIGNES][COLONNES], int x, int y);
 
 #endif

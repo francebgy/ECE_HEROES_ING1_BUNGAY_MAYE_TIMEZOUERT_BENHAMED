@@ -115,7 +115,7 @@ void demarrerNouvellePartie() {
     printf("Touche : ");
 
     char touche;
-    scanf(" %c", &touche);
+    scanf("%c", &touche);
 
     switch (touche) {
     case 'z':
@@ -136,6 +136,15 @@ void demarrerNouvellePartie() {
 
     case 'x':
         return;
+
+    case '\n':
+    case '\r':
+    interagirCase(plateau, curseurX, curseurY);
+        break;
+
+    default:
+    printf("Touche invalide : %c\n", touche);
+        break;
         }
     }
 }
