@@ -1,161 +1,44 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
 #include "plateau.h"
+#include "regles.h"     // pour tester s'il y a déjà une figure (match)
+#include <stdlib.h>
 
-int estDansPlateau(int valeur) {
-    return valeur >= 0 && valeur < NB_ITEMS;
+bool plateau_sont_adjacents(int x1, int y1, int x2, int y2) {
+    int dx = x1 - x2; if (dx < 0) dx = -dx;
+    int dy = y1 - y2; if (dy < 0) dy = -dy;
+    return (dx + dy) == 1;
 }
 
-void initialiserPlateau(int plateau[LIGNES][COLONNES]) {
-    srand(time(NULL));
+static int rand_item(void) {
+    return 1 + (rand() % NB_ITEMS);
+}
 
+void plateau_init_aleatoire(Plateau *p) {
     for (int i = 0; i < LIGNES; i++) {
         for (int j = 0; j < COLONNES; j++) {
-            plateau[i][j] = rand() % NB_ITEMS;
+            p->g[i][j] = rand_item();
         }
     }
 }
 
-void afficherPlateau(int plateau[LIGNES][COLONNES], int curseurX, int curseurY) {
+void plateau_swap(Plateau *p, int x1, int y1, int x2, int y2) {
+    int tmp = p->g[x1][y1];
+    p->g[x1][y1] = p->g[x2][y2];
+    p->g[x2][y2] = tmp;
+}
 
-    for (int i = 0; i < LIGNES; i++) {
-        for (int j = 0; j < COLONNES; j++) {
+void plateau_init_sans_match(Plateau *p) {
+    // On remplit, puis on corrige jusqu'à ce qu'il n'y ait aucune figure
+    plateau_init_aleatoire(p);
 
-            switch (plateau[i][j]) {
-                case -1:
-                printf("\033[37mX \033[0m"); // blanc/gris pour combinaisons
-                    break;
-                case 0:
-                    printf("\033[31m■ \033[0m"); // rouge
-                    break;
-                case 1:
-                    printf("\033[32m■ \033[0m"); // vert
-                    break;
-                case 2:
-                    printf("\033[34m■ \033[0m"); // bleu
-                    break;
-                case 3:
-                    printf("\033[33m■ \033[0m"); // jaune
-                    break;
-                case 4:
-                    printf("\033[35m■ \033[0m"); // violet
-                    break;
-                default:
-                    printf("  ");
-                    if (i == curseurX && j == curseurY) {
-                    printf("[X]");
-                    } else {
-                    printf("[ ]"); // ou ce que tu affiches déjà
+    // boucle de "nettoyage" simple
+    while (regles_existe_figure(p)) {
+        for (int i = 0; i < LIGNES; i++) {
+            for (int j = 0; j < COLONNES; j++) {
+                // si cette case fait partie d'une figure, on la change
+                if (regles_case_dans_figure(p, i, j)) {
+                    p->g[i][j] = rand_item();
                 }
             }
         }
-        printf("\n");
-    }
-}
-
-void detecterCombinaisons(int plateau[LIGNES][COLONNES]) {
-
-    // Détection horizontale
-    for (int i = 0; i < LIGNES; i++) {
-        for (int j = 0; j < COLONNES - 2; j++) {
-
-            int val = plateau[i][j];
-
-            if (estDansPlateau(val) &&
-                plateau[i][j + 1] == val &&
-                plateau[i][j + 2] == val) {
-
-                plateau[i][j]     = -1;
-                plateau[i][j + 1] = -1;
-                plateau[i][j + 2] = -1;
-            }
-        }
-    }
-
-    // Détection verticale
-    for (int j = 0; j < COLONNES; j++) {
-        for (int i = 0; i < LIGNES - 2; i++) {
-
-            int val = plateau[i][j];
-
-            if (estDansPlateau(val) &&
-                plateau[i + 1][j] == val &&
-                plateau[i + 2][j] == val) {
-
-                plateau[i][j]     = -1;
-                plateau[i + 1][j] = -1;
-                plateau[i + 2][j] = -1;
-            }
-        }
-    }
-}
-
-int plateauContientCombinaisons(int plateau[LIGNES][COLONNES]) {
-    for (int i = 0; i < LIGNES; i++) {
-        for (int j = 0; j < COLONNES; j++) {
-            if (plateau[i][j] == -1) {
-                return 1;
-            }
-        }
-    }
-    return 0;
-}
-
-void supprimerCombinaisons(int plateau[LIGNES][COLONNES]) {
-    for (int i = 0; i < LIGNES; i++) {
-        for (int j = 0; j < COLONNES; j++) {
-            if (plateau[i][j] == -1) {
-                plateau[i][j] = -1;
-            }
-        }
-    }
-}
-
-void appliquerGravite(int plateau[LIGNES][COLONNES]) {
-
-    for (int j = 0; j < COLONNES; j++) {
-        int ligneLibre = LIGNES - 1;
-
-        for (int i = LIGNES - 1; i >= 0; i--) {
-            if (plateau[i][j] != -1) {
-                plateau[ligneLibre][j] = plateau[i][j];
-                if (ligneLibre != i) {
-                    plateau[i][j] = -1;
-                }
-                ligneLibre--;
-            }
-        }
-    }
-}
-
-void remplirPlateau(int plateau[LIGNES][COLONNES]) {
-
-    for (int i = 0; i < LIGNES; i++) {
-        for (int j = 0; j < COLONNES; j++) {
-            if (plateau[i][j] == -1) {
-                plateau[i][j] = rand() % NB_ITEMS;
-            }
-        }
-    }
-}
-
-void resoudrePlateau(int plateau[LIGNES][COLONNES]) {
-
-    do {
-        detecterCombinaisons(plateau);
-
-        if (plateauContientCombinaisons(plateau)) {
-            supprimerCombinaisons(plateau);
-            appliquerGravite(plateau);
-            remplirPlateau(plateau);
-        }
-
-    } while (plateauContientCombinaisons(plateau));
-}
-
-void interagirCase(int plateau[LIGNES][COLONNES], int x, int y) {
-    if (plateau[x][y] == 0) {
-        plateau[x][y] = 1;  // on marque la case
     }
 }

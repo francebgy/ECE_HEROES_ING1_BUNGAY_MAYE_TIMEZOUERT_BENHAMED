@@ -1,19 +1,21 @@
 #ifndef PLATEAU_H
 #define PLATEAU_H
 
-#define LIGNES 25
-#define COLONNES 45
-#define NB_ITEMS 5
+#include <stdbool.h>
 
-void initialiserPlateau(int plateau[LIGNES][COLONNES]);
-void detecterCombinaisons(int plateau[LIGNES][COLONNES]);
-int estDansPlateau(int valeur);
-void supprimerCombinaisons(int plateau[LIGNES][COLONNES]);
-void appliquerGravite(int plateau[LIGNES][COLONNES]);
-void remplirPlateau(int plateau[LIGNES][COLONNES]);
-int plateauContientCombinaisons(int plateau[LIGNES][COLONNES]);
-void resoudrePlateau(int plateau[LIGNES][COLONNES]);
-void afficherPlateau(int plateau[LIGNES][COLONNES], int curseurX, int curseurY);
-void interagirCase(int plateau[LIGNES][COLONNES], int x, int y);
+#define LIGNES   10
+#define COLONNES 14
+#define NB_ITEMS 5   // 1..5
+
+typedef struct {
+    int g[LIGNES][COLONNES];
+} Plateau;
+
+bool plateau_sont_adjacents(int x1, int y1, int x2, int y2);
+
+void plateau_init_aleatoire(Plateau *p);
+void plateau_init_sans_match(Plateau *p);
+
+void plateau_swap(Plateau *p, int x1, int y1, int x2, int y2);
 
 #endif
